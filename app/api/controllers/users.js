@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
  create: function(req, res, next) {
-   
    req.checkBody('email', 'Email is required').notEmpty();
    req.checkBody('email', 'Email is not valid').isEmail();
    req.checkBody('username', 'Username is required').notEmpty();
@@ -17,7 +16,7 @@ module.exports = {
       if (err){ 
          next(err);
          }else
-         res.json({status: "Successfuly added! ", message: "username : "+req.body.username + " mail : "+ req.body.email, data: null});
+         res.json({status: "User added! ", message: "username : "+req.body.username + " mail : "+ req.body.email, data: null});
       });
  },
 

@@ -4,16 +4,13 @@ const users = require('./routes/users');
 const bodyParser = require('body-parser');
 const mongoose = require('./config/database'); //database configuration
 const fs = require('fs');
-
-var expressValidator = require('express-validator');
-var jwt = require('jsonwebtoken');
+const expressValidator = require('express-validator');
 
 const app = express();
 app.use(logger('dev'));
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

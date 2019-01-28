@@ -1,6 +1,7 @@
 const express = require('express');
 const logger = require('morgan');
 const users = require('./routes/users');
+const locations = require('./routes/locations')
 const bodyParser = require('body-parser');
 const mongoose = require('./config/database'); //database configuration
 const fs = require('fs');
@@ -16,9 +17,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(expressValidator())
 
-//Public views
-app.use(express.static(__dirname + '/public/css'));
-
 app.get('/', function(req, res){  
   fs.readFile('./app/views/index.html',function (err, data){
     res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
@@ -27,10 +25,13 @@ app.get('/', function(req, res){
   });
 });
 
+//Public views
+app.use(express.static(__dirname + '/public/css'));
 //Public route
 app.use('/users', users);
+app.use('/locations',locations);
 
-// express doesn't consider not found 404 as an error so we need to handle 404 it explicitly
+// Express doesn't consider not found 404 as an error so we need to handle 404 it explicitly
 // handle 404 error
 app.use(function(req, res, next) {
 	let err = new Error('Not Found');
@@ -38,7 +39,7 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-// handle errors
+// Handle errors
 app.use(function(err, req, res, next) {
 	console.log(err);
 	
@@ -52,7 +53,7 @@ app.use(function(err, req, res, next) {
     }
 });
 
-
+//Server listening at port 3000
 app.listen(3000, function(){
 	console.log('Node server listening on port 3000');
 });

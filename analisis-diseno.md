@@ -44,14 +44,15 @@ No se generó ninguna base, todo fue creado manualmente.
 # 3. Diseño:
 
 ## 3.1 Modelo de datos:
-
+```json
 User:
 {
     username: String,
     password: String,
     email: String
 }
-
+```
+```json
 Location:
 {
     username: String,
@@ -60,6 +61,8 @@ Location:
     hour: String,
     date: String
 }
+```
+
 
 ## 3.2 Servicios Web
 

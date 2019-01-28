@@ -2,7 +2,7 @@ const locationModel = require('../models/locations');
 
 module.exports = {
  save: function(req, res, next) {
-      locationModel.create({ username: req.body.username, gpsLatitude: req.body.latitude, gpsLongitude: req.body.longitude, hour: req.body.hour, date: req.body.date}, function (err, result) {
+      locationModel.create({ username: req.body.username, latitude: req.body.latitude, longitude: req.body.longitude, hour: req.body.hour, date: req.body.date}, function (err, result) {
       if (err){ 
          next(err);
          }else

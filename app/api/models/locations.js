@@ -8,12 +8,12 @@ const LocationSchema = new Schema({
   trim: true,  
   required: true,
  },
- gpsLatitude: {
+ latitude: {
   type: String,
   trim: true,
   required: true
  },
- gpsLongitude: {
+ longitude: {
   type: String,
   trim: true,
   required: true

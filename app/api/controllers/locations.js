@@ -6,7 +6,7 @@ module.exports = {
       if (err){ 
          next(err);
          }else
-         res.json({status: "Location added! ", message: "", data: null});
+         res.json({status: "Location added! ", message: "Location added to :"+req.body.username, data: null});
       });
  },
 

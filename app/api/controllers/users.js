@@ -1,6 +1,7 @@
 const userModel = require('../models/users');
 const bcrypt = require('bcryptjs'); 
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 module.exports = {
  create: function(req, res, next) {
@@ -13,7 +14,7 @@ module.exports = {
       if (err){ 
          next(err);
          }else
-         res.json({status: "User added! ", message: "username : "+req.body.username + " mail : "+ req.body.email, data: null});
+         return res.redirect('/');
       });
  },
 
@@ -24,12 +25,28 @@ authenticate: function(req, res, next) {
      } else {
         console.log(userInfo)
 if(bcrypt.compareSync(req.body.password, userInfo.password)) {
-const token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), { expiresIn: '1h' });
-res.json({status:"Success", message: "User found!", data:{user: userInfo, token:token}});
+   const token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), { expiresIn: '1h' });
+   res.json({status:"Success", message: "User found!", data:{user: userInfo, token:token}});
 }else{
-res.json({status:"Error", message: "Invalid username/password!", data:null});
-}
+   res.json({status:"Error", message: "Invalid username/password!", data:null});
+   }
      }
     });
  },
-}
+
+   loadRegister: function(req, res, next) {
+   fs.readFile('./app/views/register.html',function (err, data){
+      res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
+      res.write(data);
+      res.end();
+    })},
+
+   loadAuthenticate: function(req, res, next) {
+      fs.readFile('./app/views/login.html',function (err, data){
+         res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
+         res.write(data);
+         res.end();
+       })
+      }
+
+ }

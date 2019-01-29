@@ -4,10 +4,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
  create: function(req, res, next) {
-   req.checkBody('email', 'Email is required').notEmpty();
    req.checkBody('email', 'Email is not valid').isEmail();
-   req.checkBody('username', 'Username is required').notEmpty();
-   req.checkBody('password', 'Password is required').notEmpty();
    var errors = req.validationErrors();
    if(errors){
       next(errors)

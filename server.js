@@ -4,10 +4,10 @@ const users = require('./routes/users');
 const locations = require('./routes/locations')
 const bodyParser = require('body-parser');
 const mongoose = require('./config/database'); //database configuration
-const fs = require('fs');
 const expressValidator = require('express-validator');
-
+var jwt = require('jsonwebtoken');
 const app = express();
+
 app.use(logger('dev'));
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 

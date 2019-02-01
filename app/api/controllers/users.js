@@ -19,8 +19,8 @@ authenticate: function(req, res, next) {
      } else {
 if(bcrypt.compareSync(req.body.password, userInfo.password)) {
    const token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), { expiresIn: '1h' });
-   res.json({status:"Success", message: "User found!", data:{user: userInfo, token:token}});
-
+   //res.json({status:"Success", message: "User found!", data:{user: userInfo, token:token}});
+   return res.redirect('/users/userPage');
 }else{
    res.json({status:"Error", message: "Invalid username/password!", data:null});
    }
@@ -41,6 +41,13 @@ if(bcrypt.compareSync(req.body.password, userInfo.password)) {
          res.write(data);
          res.end();
        })
-      }
+      },
 
- }
+   loadUserPage: function(req, res, next) {
+      fs.readFile('./app/views/userpage.html',function (err, data){
+         res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
+         res.write(data);
+         res.end();
+         })
+      }
+}

@@ -18,15 +18,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(expressValidator())
 
 app.get('/', function(req, res){  
-  fs.readFile('./app/views/login.html',function (err, data){
-    res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
-    res.write(data);
-    res.end();
-  });
+  res.redirect('/users/authenticateUser')
 });
 
 //Public views
-app.use(express.static(__dirname + '/public/css'));
+app.use(express.static(__dirname + '/public/'));
 //Public route
 app.use('/users', users);
 app.use('/locations',locations);

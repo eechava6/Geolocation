@@ -2,12 +2,25 @@ const locationModel = require('../models/locations');
 
 module.exports = {
  save: function(req, res, next) {
-      locationModel.create({ username: req.body.username, latitude: req.body.latitude, longitude: req.body.longitude, hour: req.body.hour, date: req.body.date}, function (err, result) {
-      if (err){ 
-         next(err);
-         }else
-         res.json({status: "Location added! ", message: "Location added to :"+req.body.username, data: null});
-      });
+   if(!req.isAuthenticated()) {
+      res.redirect('/')
+    } else {
+      var date = new Date();
+      var hour = date.getHours();
+         
+      locationModel.create({ username: req.session.data.username, 
+         latitude: req.body.latitude, 
+         longitude: req.body.longitude, 
+         hour: hour, 
+         date: date.toDateString}, 
+         function (err, result) {
+         if (err){ 
+            next(err);
+            }else
+            res.json({status: "success"});
+         });
+    }
+     
  },
 
  search: function(req, res, next) {

@@ -3,8 +3,7 @@ $("#login").click(function(){
 
     $.post("/users/authenticateUser" ,{ username: $("#username").val(), password: $("#password").val()}).
     done(function(res) {
-      console.log(res)
-      if(res.status === "sucess"){
+      if(res.status === "success"){
         window.location.assign('/users/userPage')
       }else{
         $("#failed").show();

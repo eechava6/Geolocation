@@ -11,6 +11,7 @@ const passport = require('passport');
 
 const app = express();
 //var jwt = require('jsonwebtoken');
+
 app.use(session({
   genid: (req) => {
     return uuid() // use UUIDs for session IDs
@@ -21,6 +22,7 @@ app.use(session({
 }))
 
 app.use(logger('dev'));
+
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));

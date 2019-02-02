@@ -54,7 +54,8 @@ authenticate: function(req, res, next) {
     if (err) { return next(err); }
    req.login(user, (err) => {
       if(err){ return next(err)}
-      return res.json({status:"sucess"})
+      req.session.data = user;
+      return res.json({status:"success"})
    })
    })(req, res, next);
  },

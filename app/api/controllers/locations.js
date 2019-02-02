@@ -6,13 +6,13 @@ module.exports = {
       res.redirect('/')
     } else {
       var date = new Date();
-      var hour = date.getHours();
+      var hour = date.getHours() + ":"+date.getMinutes();
          
       locationModel.create({ username: req.session.data.username, 
          latitude: req.body.latitude, 
          longitude: req.body.longitude, 
          hour: hour, 
-         date: date.toDateString}, 
+         date: date.toDateString()}, 
          function (err, result) {
          if (err){ 
             next(err);
@@ -24,12 +24,12 @@ module.exports = {
  },
 
  search: function(req, res, next) {
-    locationModel.findOne({username:req.body.username}, function(err, userInfo){
+    locationModel.find({username:req.session.data.username}, function(err, userInfo){
      if (userInfo == null || err) {
          next("Username not found!");
      } else {
         console.log(userInfo)
-        res.json({status:"Success", message: "User found!", data:{user: userInfo}});
+        res.json({status:"success", data:userInfo});
      }
     });
  },

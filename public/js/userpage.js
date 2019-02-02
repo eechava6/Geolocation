@@ -8,6 +8,16 @@ $(document).ready(function() {
         $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
         initMap()
         
+        $.get("/locations/searchLocations",function(data, status){
+        }).
+        done(function(res) {
+          if(res.status === "success"){
+              res.data =
+            $("#newData").append(JSON.stringify(res.data));
+          }
+    
+          });
+    
         
         
     });

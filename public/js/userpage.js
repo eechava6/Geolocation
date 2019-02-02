@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    updateTable();
     $("div.bhoechie-tab-menu>ul.list-group>a").click(function(e) {
         e.preventDefault();
         $(this).siblings('a.active').removeClass("active");
@@ -7,29 +8,11 @@ $(document).ready(function() {
         $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
         $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
         initMap()
-        
-        $.get("/locations/searchLocations",function(data, status){
-        }).
-        done(function(res) {
-          if(res.status === "success"){
-              res.data =
-            $("#newData").append(JSON.stringify(res.data));
-          }
-    
-          });
-    
-        
-        
     });
-
-    
 });
 function initMap() {
-    // The location of Uluru
-    // The map, centered at Uluru
     var map = new google.maps.Map(
         document.getElementById('map'), {zoom: 4});
-    // The marker, positioned at Uluru
     infoWindow = new google.maps.InfoWindow;
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -37,7 +20,7 @@ function initMap() {
             lat: position.coords.latitude,
             lng: position.coords.longitude}
     infoWindow.setPosition(pos);
-    infoWindow.setContent('Location found.');
+    infoWindow.setContent('User actual position.');
     infoWindow.open(map);
     map.setCenter(pos);
     map.setZoom(20);
@@ -53,16 +36,43 @@ function initMap() {
 function saveMarker(pos){
     $.post("../locations/saveLocation", {latitude:pos.lat,longitude:pos.lng}).done(function(res) {
         if(res.status === "success"){
-          console.log("WORKED POSITION ADDED YAY")
         }else{
-          $("#failed").show();
+         // $("#failed").show();
         }
         })
 }
+
 function placeMarker(position, map) {
     var marker = new google.maps.Marker({
         position: position,
         map: map
     });
     map.panTo(position);
+}
+
+function updateTable(){
+    $.get("/locations/searchLocations",function(data, status){
+    }).
+    done(function(res) {
+      if(res.status === "success"){
+        txt = "";
+        myObj = JSON.parse(JSON.stringify(res.data));
+        txt += "<table  id='tripsTable'>"+
+        "<tr><th>Latitude</th>"+
+        "<th>Longitude</th>"+
+        "<th>Date</th>"+
+        "<th>Hour</th></tr>"
+
+        for (x in myObj) {
+          txt += "<tr><td>"+myObj[x].latitude + 
+          "</td><td>"+myObj[x].longitude+
+          "</td><td>"+myObj[x].date+
+          "</td><td>"+myObj[x].hour+
+          "</td></tr>";
+        }
+        txt += "</table>"    
+        $('#tripsData').html(txt);
+      }
+
+      });
 }

@@ -24,7 +24,7 @@ module.exports = {
  },
 
  search: function(req, res, next) {
-    locationModel.find({username:req.session.data.username}, function(err, userInfo){
+    locationModel.find({username:req.session.data.username},'latitude longitude hour date -_id', function(err, userInfo){
      if (userInfo == null || err) {
          next("Username not found!");
      } else {

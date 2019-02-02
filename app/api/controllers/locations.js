@@ -28,7 +28,6 @@ module.exports = {
      if (userInfo == null || err) {
          next("Username not found!");
      } else {
-        console.log(userInfo)
         res.json({status:"success", data:userInfo});
      }
     });

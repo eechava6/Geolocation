@@ -1,14 +1,19 @@
 $(document).ready(function() {
-    updateTable();
     $("div.bhoechie-tab-menu>ul.list-group>a").click(function(e) {
         e.preventDefault();
         $(this).siblings('a.active').removeClass("active");
         $(this).addClass("active");
         var index = $(this).index();
+        console.log(index);
+        if(index == 2)
+        {
+            updateTable();
+        }
         $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
         $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
-        initMap()
+        
     });
+    initMap()
 });
 function initMap() {
     var map = new google.maps.Map(

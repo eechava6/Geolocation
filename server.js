@@ -13,8 +13,6 @@ const app = express();
 //var jwt = require('jsonwebtoken');
 app.use(session({
   genid: (req) => {
-    console.log('Inside the session middleware')
-    console.log(req.sessionID)
     return uuid() // use UUIDs for session IDs
   },store: new FileStore(), 
   secret: 'keyboard cat',

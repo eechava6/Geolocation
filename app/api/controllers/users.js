@@ -7,7 +7,7 @@ const LocalStrategy = require('passport-local').Strategy;
 // configure passport.js to use the local strategy
 passport.use(new LocalStrategy({},
   (username, password, done) => {
-    console.log('Inside local strategy callback')
+    
 
    //call database
     userModel.findOne({username:username}, function(err, userInfo){
@@ -28,13 +28,11 @@ passport.use(new LocalStrategy({},
 
 // tell passport how to serialize the user
 passport.serializeUser((user, done) => {
-   console.log('Inside serializeUser callback. User id is save to the session file store here')
+  
    done(null, user.id);
  });
 
  passport.deserializeUser((id, done) => {
-   console.log('Inside deserializeUser callback')
-   console.log(`The user id passport saved in the session file store is: ${id}`)
    userModel.findById(id, function(err, user) {
       done(err, user);
     });

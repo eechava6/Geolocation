@@ -3,8 +3,13 @@ $(document).ready(function() {
       
       $.post("/users/registerUser", { username: $("#username").val(),
        email: $("#email").val(),
-        password: $("#password").val(),}).done(function() {
-          window.location.assign('/')
+       password: $("#password").val(),}).done(function(res) {
+         console.log(res)
+        if(res.status === "success"){
+          window.location.assign('/users/authenticateUser')
+        }else{
+          $("#failed").show();
+        }
         })
       
       error: (error) => {

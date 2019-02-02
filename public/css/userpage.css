@@ -6,8 +6,7 @@
     left: 0;
     background-size: cover;
     background-position: 50% 50%;
-    background-image: url('http://backgroundcheckall.com/wp-content/uploads/2017/12/profile-background-9.jpg');
-    background-repeat:repeat;
+    background-image: linear-gradient(to left top, #d3d5d3, #d6d9d6, #d9dcd9, #dde0dd, #e0e4e0, #e1e6e1, #e3e7e3, #e4e9e4, #e4e9e4, #e5e9e5, #e5e9e5, #e5e9e5);
   }
 /*  bhoechie tab */
 div.bhoechie-tab-container{
@@ -18,11 +17,8 @@ div.bhoechie-tab-container{
   padding: 0 !important;
   border-radius: 4px;
   -moz-border-radius: 4px;
-  border:1px solid #ddd;
-  padding: 10%;
-  -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-  box-shadow: 0 6px 12px rgba(0,0,0,.175);
-  -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  margin:3%;
+  left:1.5%; 
   background-clip: padding-box;
   opacity: 0.97;
   filter: alpha(opacity=97);
@@ -55,8 +51,8 @@ div.bhoechie-tab-menu ul.list-group>a:last-child{
 div.bhoechie-tab-menu ul.list-group>a.active,
 div.bhoechie-tab-menu ul.list-group>a.active .glyphicon,
 div.bhoechie-tab-menu ul.list-group>a.active .fa{
-  background-color: #004c99;
-  background-image: #5A55A3;
+  background-color: #4aba70;
+  background-image: #43ac66;
   color: #ffffff;
 }
 div.bhoechie-tab-menu ul.list-group>a.active:after{
@@ -68,16 +64,47 @@ div.bhoechie-tab-menu ul.list-group>a.active:after{
   border-left: 0;
   border-bottom: 13px solid transparent;
   border-top: 13px solid transparent;
-  border-left: 10px solid #5A55A3;
+  border-left: 10px solid #4aba70;
 }
 
 div.bhoechie-tab-content{
   background-color: #ffffff;
-  /* border: 1px solid #eeeeee; */
   padding-left: 20px;
   padding-top: 10px;
 }
 
 div.bhoechie-tab div.bhoechie-tab-content:not(.active){
   display: none;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  z-index: 2;
+  color: #fff;
+  background-color: #4aba70;
+  border-color: #4aba70;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 21px 15px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.col-lg-3 {
+    width: 20%;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #4aba70;
+  border-color: #368651;
+}
+
+
+#map {
+  width: 100%;
+  height: 80%;
 }

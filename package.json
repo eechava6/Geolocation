@@ -4,7 +4,8 @@
   "description": "Aplicación de registro de posición (tracking-gps) en tiempo real (tipo IoT) utilizando *NodeJs* y las mejores prácticas DevOps para integración y entrega continua.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:server": "nodemon --ignore sessions/ server.js"
   },
   "repository": {
     "type": "git",
@@ -21,12 +22,18 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "express-validator": "^5.3.1",
     "fs": "0.0.1-security",
     "jsonwebtoken": "^8.4.0",
+    "mapbox": "^1.0.0-beta10",
     "mongoose": "^5.4.6",
     "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "session-file-store": "^1.2.0",
+    "uuid": "^3.3.2"
   }
 }

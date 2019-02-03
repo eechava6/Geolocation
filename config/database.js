@@ -1,6 +1,6 @@
 //Set up mongoose connection
 const mongoose = require('mongoose');
-const mongoDB = 'mongodb://10.131.137.222:27017/trackingGPS';
+const mongoDB = 'mongodb://mongo-server:27017/trackingGPS';
 mongoose.connect(mongoDB,  { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;

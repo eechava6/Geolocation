@@ -60,6 +60,13 @@ authenticate: function(req, res, next) {
    })(req, res, next);
  },
 
+ logout: function(req, res, next) {
+   if(req.isAuthenticated()) {
+    req.session.destroy();
+    }
+    res.json({status:"success"})
+  },
+
    loadRegister: function(req, res, next) {
       if(req.isAuthenticated()) {
          res.redirect('./userPage')

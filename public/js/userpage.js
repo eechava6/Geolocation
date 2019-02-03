@@ -1,51 +1,77 @@
+
+var map; 
 $(document).ready(function() {
     $("div.bhoechie-tab-menu>ul.list-group>a").click(function(e) {
         e.preventDefault();
         $(this).siblings('a.active').removeClass("active");
         $(this).addClass("active");
         var index = $(this).index();
-        console.log(index);
         if(index == 2)
         {
             updateTable();
+        }else if(index == 4){
+            $.post("/users/logoutUser",{}).
+            done(function(res) {
+            if(res.status === "success"){
+                window.location.assign('/users/authenticateUser')}})
         }
         $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
         $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
-        
     });
-    initMap()
+
+    $("#tracking").click(autoUpdate)
+    $("#clearHistory").click(function(){
+        $.post("/locations/clearLocations",{})
+        updateTable()
+        initMap()
+    })
+    
+    $(window).load(function(){
+        initMap()
+    });
+    
+    
 });
+
 function initMap() {
-    var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 4});
-    infoWindow = new google.maps.InfoWindow;
+    map = new google.maps.Map(document.getElementById('map'));
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude}
-    infoWindow.setPosition(pos);
-    infoWindow.setContent('User actual position.');
-    infoWindow.open(map);
+    
     map.setCenter(pos);
     map.setZoom(20);
+    
     ;});}
-
+    
     map.addListener('click', function(e) {
         placeMarker(e.latLng, map);
-        saveMarker(e.latLng)
     });
-        
+      
    }
 
-function saveMarker(pos){
-    $.post("../locations/saveLocation", {latitude:pos.lat,longitude:pos.lng}).done(function(res) {
-        if(res.status === "success"){
-        }else{
-         // $("#failed").show();
-        }
-        })
-}
+function autoUpdate() {
+    if($("#tracking").text() === "Start Tracking"){
+        $("#tracking").text("Stop Tracking")
+        var index = 0;
+        interval = setInterval(function () {
+            navigator.geolocation.getCurrentPosition(function(position) {  
+                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                placeMarker(pos,map)
+                index++;
+                $('#count').text(index)
+                updateTable()
+            }); 
+        }, 5000);
+    }else{ $("#failed").show();
+        clearInterval(interval);
+        $("#tracking").text("Start Tracking")
+    }
+    
+  }
 
 function placeMarker(position, map) {
     var marker = new google.maps.Marker({
@@ -53,6 +79,7 @@ function placeMarker(position, map) {
         map: map
     });
     map.panTo(position);
+    $.post("../locations/saveLocation", {latitude:position.lat,longitude:position.lng})
 }
 
 function updateTable(){
@@ -81,3 +108,4 @@ function updateTable(){
 
       });
 }
+

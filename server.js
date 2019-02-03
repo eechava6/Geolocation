@@ -9,6 +9,7 @@ const FileStore = require('session-file-store')(session);
 const uuid = require('uuid/v4')
 const passport = require('passport');
 
+
 const app = express();
 //var jwt = require('jsonwebtoken');
 
@@ -21,6 +22,7 @@ app.use(session({
   saveUninitialized: true
 }))
 
+
 app.use(logger('dev'));
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
@@ -31,12 +33,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.get('/', function(req, res){  
   res.redirect('/users/authenticateUser')
 });
 
 //Public views
 app.use(express.static(__dirname + '/public/'));
+
 //Public route
 app.use('/users', users);
 app.use('/locations',locations);

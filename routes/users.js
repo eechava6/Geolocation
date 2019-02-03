@@ -4,6 +4,7 @@ const userController = require('../app/api/controllers/users');
 
 router.post('/registerUser', userController.create);
 router.post('/authenticateUser', userController.authenticate);
+router.post('/logoutUser', userController.logout);
 
 router.get('/registerUser',userController.loadRegister)
 router.get('/authenticateUser',userController.loadAuthenticate)

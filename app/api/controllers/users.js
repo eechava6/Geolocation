@@ -40,6 +40,7 @@ passport.serializeUser((user, done) => {
 
 module.exports = {
  create: function(req, res, next) {
+      
       userModel.create({ username: req.body.username, email: req.body.email, password: req.body.password }, function (err, result) {
       if (err){ 
          console.log("Error creating user : "+err)

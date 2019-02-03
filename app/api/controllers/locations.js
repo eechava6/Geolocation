@@ -1,6 +1,10 @@
+//Import Location Model
 const locationModel = require('../models/locations');
 
 module.exports = {
+
+//Save a new location, user just send a post request and 
+//system based on Location model determines username, location, date and hour.
  save: function(req, res, next) {
    if(!req.isAuthenticated()) {
       res.redirect('/')
@@ -23,6 +27,8 @@ module.exports = {
      
  },
 
+ //Search all locations related to a user, user just send post request
+ //and system determines username and calls DB finding his routes history
  search: function(req, res, next) {
     locationModel.find({username:req.session.data.username},'latitude longitude hour date -_id',
      function(err, userInfo){
@@ -34,6 +40,8 @@ module.exports = {
     });
  },
 
+ //Clear all locations related to a user, user just send post request
+ //and system determines username and calls DB removing his history
  clear: function(req,res,next){
    locationModel.deleteMany({username:req.session.data.username},function(err){
       res.json({status:"success"})

@@ -1,17 +1,22 @@
+//Imports
 const express = require('express');
+const bodyParser = require('body-parser');
+
+//App imports
 const users = require('./routes/users');
 const locations = require('./routes/locations')
-const bodyParser = require('body-parser');
 const mongoose = require('./config/database'); //database configuration
+
+//Session imports
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const uuid = require('uuid/v4')
 const passport = require('passport');
 
-
+//Creates the instance
 const app = express();
-//var jwt = require('jsonwebtoken');
 
+//Configure the secret and unique strings generator for session
 app.use(session({
   genid: (req) => {
     return uuid() // use UUIDs for session IDs
@@ -21,36 +26,29 @@ app.use(session({
   saveUninitialized: true
 }))
 
+//Connection to DB
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+//App middleware start
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+//Redirect all '/' request  to authentication.
 app.get('/', function(req, res){  
   res.redirect('/users/authenticateUser')
 });
 
-//Public views
+//Statics (Styles and JS)
 app.use(express.static(__dirname + '/public/'));
 
-//Public route
+//Public routes
 app.use('/users', users);
 app.use('/locations',locations);
 
-// Express doesn't consider not found 404 as an error so we need to handle 404 it explicitly
-// handle 404 error
-app.use(function(req, res, next) {
-	let err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
 // Handle errors
 app.use(function(err, req, res, next) {
-
-	
   if(err.status === 404)
   	res.status(404).json({message: "Not found"});
   else

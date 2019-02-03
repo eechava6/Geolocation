@@ -1,4 +1,4 @@
-//Set up mongoose connection
+//Set up mongoose connection and db config
 const mongoose = require('mongoose');
 const mongoDB = 'mongodb://mongo-server:27017/trackingGPS';
 mongoose.connect(mongoDB,  { useNewUrlParser: true });

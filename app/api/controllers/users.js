@@ -42,8 +42,10 @@ module.exports = {
  create: function(req, res, next) {
       userModel.create({ username: req.body.username, email: req.body.email, password: req.body.password }, function (err, result) {
       if (err){ 
+         console.log("Error creating user : "+err)
          return res.json({status:"failed"})
          }else
+         
          return res.json({status:"success"})
       });
  },
@@ -53,7 +55,9 @@ authenticate: function(req, res, next) {
     if(info) { return res.send(info.message)}
     if (err) { return next(err); }
    req.login(user, (err) => {
-      if(err){ return next(err)}
+      if(err){ 
+        console.log("Error login user : "+err)
+        return next(err)}
       req.session.data = user;
       return res.json({status:"success"})
    })

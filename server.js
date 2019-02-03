@@ -1,5 +1,4 @@
 const express = require('express');
-const logger = require('morgan');
 const users = require('./routes/users');
 const locations = require('./routes/locations')
 const bodyParser = require('body-parser');
@@ -21,11 +20,6 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
-
-
-app.use(logger('dev'));
-
-app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.use(bodyParser.json());

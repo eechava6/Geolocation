@@ -33,6 +33,8 @@ $(document).ready(function() {
         updateTable()
         initMap()
     })
+
+    $("#tomap").click(CoordsToMap)
     //Once the window is loaded inits GoogleMaps
     $(window).load(function(){
         initMap()
@@ -58,23 +60,52 @@ function initMap() {
     //Adds a listener when uses clicks map
     //adds a new marker
     map.addListener('click', function(e) {
-        placeMarker(e.latLng, map);
+        placeMarker(e.latLng, map,true);
     });
       
    }
+
+//Calls for a track name and converts longitudes and latitudes into
+//map markers
+function CoordsToMap(){
+    if($("#trackname").val() === ""){
+        $("#trackname").val("WRITE A VALID TRACK NAME")
+        return;
+    }
+    $.post("/locations/mapLocations",{trackId:$("#trackname").val()}).
+    done(function(res) {
+      if(res.status === "success"){
+          initMap();
+        //If sucess add pointers to map
+        trackArray = JSON.parse(JSON.stringify(res.data));
+        console.log(trackArray)
+        for (trackLine in trackArray) {
+                console.log(trackArray[trackLine])
+                var pos = new google.maps.LatLng(trackArray[trackLine].latitude
+                ,trackArray[trackLine].longitude);  
+                placeMarker(pos,map,false)  
+        }
+      }
+      });
+}
 
 //AutoUpdate function
 function autoUpdate() {
     //If state is Start Tracking: Starts tracking every 
     //5 seconds and adds marker where user is, also
     //adds to DB
+    if($("#track").val() === ""){
+        $("#track").val("NoLocationName")
+    }
     if($("#tracking").text() === "Start Tracking"){
+        $("#track").prop('disabled',true)
         $("#tracking").text("Stop Tracking")
         var index = 0;
         interval = setInterval(function () {
+    
             navigator.geolocation.getCurrentPosition(function(position) {  
                 var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                placeMarker(pos,map)
+                placeMarker(pos,map,true)
                 index++;
                 $('#count').text(index)
                 updateTable()
@@ -84,19 +115,24 @@ function autoUpdate() {
     }else{ $("#failed").show();
         clearInterval(interval);
         $("#tracking").text("Start Tracking")
+        $("#track").val("")
+        $("#track").prop('disabled',false)
     }
     
   }
 
 //Function to place a Marker in map and add history to DB
-function placeMarker(position, map) {
+function placeMarker(position, map, save) {
+    console.log(position);
     var marker = new google.maps.Marker({
         position: position,
         map: map
     });
     map.panTo(position);
-    $.post("../locations/saveLocation", {latitude:position.lat,longitude:position.lng})
-}
+    if(save){
+    $.post("../locations/saveLocation", {latitude:position.lat,longitude:position.lng,trackId: $("#track").val()})
+    }
+    }
 
 //Function to update table
 function updateTable(){
@@ -109,13 +145,15 @@ function updateTable(){
         txt = "";
         myObj = JSON.parse(JSON.stringify(res.data));
         txt += "<table  id='tripsTable'>"+
-        "<tr><th>Latitude</th>"+
+        "<tr><th>Track Name</th>"+
+        "<th>Latitude</th>"+
         "<th>Longitude</th>"+
         "<th>Date</th>"+
         "<th>Hour</th></tr>"
 
         for (x in myObj) {
-          txt += "<tr><td>"+myObj[x].latitude + 
+          txt += "<tr><td>"+myObj[x].trackId +
+          "</td><td>"+myObj[x].latitude + 
           "</td><td>"+myObj[x].longitude+
           "</td><td>"+myObj[x].date+
           "</td><td>"+myObj[x].hour+

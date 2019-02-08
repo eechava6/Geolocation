@@ -3,6 +3,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/userpage.css" />
+<link rel="stylesheet" type="text/css" href="../css/reglog.css" />
 <script type="text/javascript" src="../js/userpage.js"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
@@ -49,7 +50,8 @@
               
                 <div class="bhoechie-tab-content">
                   <div id='map'></div>
-                  <div class="wrapper">
+                  <div class="wrapper">        
+                    <input type="text" class="form-control" id="track" placeholder="Track Name" required="required">
                     <button class="btn btn-primary btn-block btn-lg" id="tracking">Start Tracking</button>
                     <p style="text-align: center">Tracking request sent : </p><p id="count" style="text-align: center";> 0 </p>
                 </div>
@@ -62,8 +64,10 @@
                       <ul class="trips">
                           <p id="tripsData"> </p>
                       </ul>
-                      <button class="btn btn-primary btn-block btn-lg" id="clearHistory">Delete History</button>
                     </center>
+                    <button class="btn btn-primary btn-block btn-lg" id="clearHistory">Delete History</button>
+                      <button class="btn btn-primary btn-block btn-lg" id="tomap">Show in map</button>
+                      <input type="text" class="form-control" id="trackname" placeholder="Track Name to Map" required="required">
                 </div>
                 
                 <div class="bhoechie-tab-content">

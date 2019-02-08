@@ -98,6 +98,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 }
 
 .btn-primary {
+  width: 20%;
   color: #fff;
   background-color: #4aba70;
   border-color: #368651;
@@ -120,7 +121,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
  word-wrap: break-word;
  overflow: auto;
  height: 80%;
-overflow-x: hidden;
+overflow-x: auto;
 }
 
 #tripsTable {

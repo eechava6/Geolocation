@@ -10,11 +10,7 @@ module.exports = {
       res.redirect('/')
     } else {
       var date = new Date();
-<<<<<<< HEAD
       var hour = (date.getHours()-5) + ":"+date.getMinutes().toString();
-=======
-      var hour = date.getHours() + ":"+date.getMinutes().toString();
->>>>>>> dev
          
       locationModel.create({ username: req.session.data.username, 
          trackId:req.body.trackId,

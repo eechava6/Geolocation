@@ -69,13 +69,17 @@ function initMap() {
 //map markers
 function CoordsToMap(){
     if($("#trackname").val() === ""){
-        $("#trackname").val("WRITE A VALID TRACK NAME")
+        $("#trackname").attr("placeholder","WRITE A VALID TRACK NAME")
+        $("#failed").show();
+        $("#found").hide();
         return;
     }
     $.post("/locations/mapLocations",{trackId:$("#trackname").val()}).
     done(function(res) {
-      if(res.status === "success"){
-          initMap();
+      if(res.status === "success" && res.data.length > 0){
+        $("#failed").hide();
+        $("#found").show();
+        initMap();
         //If sucess add pointers to map
         trackArray = JSON.parse(JSON.stringify(res.data));
         console.log(trackArray)
@@ -85,6 +89,10 @@ function CoordsToMap(){
                 ,trackArray[trackLine].longitude);  
                 placeMarker(pos,map,false)  
         }
+      }else{
+        $("#trackname").attr("placeholder","WRITE A VALID TRACK NAME")
+        $("#found").hide();
+        $("#failed").show();
       }
       });
 }
@@ -112,7 +120,7 @@ function autoUpdate() {
             }); 
         }, 5000);
 //If State is Stop Tracking, stops interval.
-    }else{ $("#failed").show();
+    }else{ 
         clearInterval(interval);
         $("#tracking").text("Start Tracking")
         $("#track").val("")

@@ -3,7 +3,6 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/userpage.css" />
-<link rel="stylesheet" type="text/css" href="../css/reglog.css" />
 <script type="text/javascript" src="../js/userpage.js"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
@@ -65,9 +64,11 @@
                           <p id="tripsData"> </p>
                       </ul>
                     </center>
-                    <button class="btn btn-primary btn-block btn-lg" id="clearHistory">Delete History</button>
-                      <button class="btn btn-primary btn-block btn-lg" id="tomap">Show in map</button>
-                      <input type="text" class="form-control" id="trackname" placeholder="Track Name to Map" required="required">
+                    <input type="text" class="form-control" id="trackname" placeholder="Track Name to Map" required="required">
+                    <button class="btn btn-primary btn-no-block btn-lg" id="tomap">Show in map</button>
+                    <button class="btn btn-primary btn-no-block btn-lg" id="clearHistory">Delete History</button>
+                    <p id="failed" style="color:#bd1a1a ;display: none;text-align: center";>Track name not found</p>
+                    <p id="found" style="color:#00b64c ;display: none;text-align: center";>Track found - Go to map</p>
                 </div>
                 
                 <div class="bhoechie-tab-content">

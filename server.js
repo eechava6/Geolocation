@@ -33,8 +33,8 @@ app.use(session({
 //Connection to DB
 mongoose.connect(config.db,{ useNewUrlParser: true });
 var db = mongoose.connection;
+console.log(config.db)
 db.on('error', function () {
-  console.log(config.db)
   throw new Error('unable to connect to database at ' + config.db);
 });
 

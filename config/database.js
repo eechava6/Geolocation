@@ -35,7 +35,7 @@ var config = {
     db: 'mongodb://mongo-server/TrackingGps'
   },
 
-  production: {
+  prod: {
     baseUrl: "/",
     root: rootPath,
     app: {

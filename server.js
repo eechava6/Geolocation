@@ -5,13 +5,17 @@ const bodyParser = require('body-parser');
 //App imports
 const users = require('./routes/users');
 const locations = require('./routes/locations')
-const mongoose = require('./config/database'); //database configuration
+const config = require('./config/database'); //database configuration
+const mongoose = require('mongoose');
 
 //Session imports
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const uuid = require('uuid/v4')
 const passport = require('passport');
+
+
+
 
 //Creates the instance
 const app = express();
@@ -27,7 +31,13 @@ app.use(session({
 }))
 
 //Connection to DB
-mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+mongoose.connect(config.db,{ useNewUrlParser: true });
+var db = mongoose.connection;
+console.log(config.db)
+db.on('error', function () {
+  throw new Error('unable to connect to database at ' + config.db);
+});
+
 
 //App middleware start
 app.use(bodyParser.json());

@@ -49,7 +49,8 @@
               
                 <div class="bhoechie-tab-content">
                   <div id='map'></div>
-                  <div class="wrapper">
+                  <div class="wrapper">        
+                    <input type="text" class="form-control" id="track" placeholder="Track Name" required="required">
                     <button class="btn btn-primary btn-block btn-lg" id="tracking">Start Tracking</button>
                     <p style="text-align: center">Tracking request sent : </p><p id="count" style="text-align: center";> 0 </p>
                 </div>
@@ -62,8 +63,12 @@
                       <ul class="trips">
                           <p id="tripsData"> </p>
                       </ul>
-                      <button class="btn btn-primary btn-block btn-lg" id="clearHistory">Delete History</button>
                     </center>
+                    <input type="text" class="form-control" id="trackname" placeholder="Track Name to Map" required="required">
+                    <button class="btn btn-primary btn-no-block btn-lg" id="tomap">Show in map</button>
+                    <button class="btn btn-primary btn-no-block btn-lg" id="clearHistory">Delete History</button>
+                    <p id="failed" style="color:#bd1a1a ;display: none;text-align: center";>Track name not found</p>
+                    <p id="found" style="color:#00b64c ;display: none;text-align: center";>Track found - Go to map</p>
                 </div>
                 
                 <div class="bhoechie-tab-content">

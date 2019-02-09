@@ -8,6 +8,11 @@ const LocationSchema = new Schema({
   trim: true,  
   required: true,
  },
+ trackId:{
+  type: String,
+  trim: true,
+  required: true,
+ },
  latitude: {
   type: String,
   trim: true,
